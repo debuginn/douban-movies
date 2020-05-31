@@ -70,8 +70,8 @@ func main() {
 	}
 
 	movieItem := v.Channel.MovieItem
-	MoviesMap := make(map[int]interface{})
 
+	MoviesMap := make(map[int]interface{})
 	for i := 0; i < len(movieItem); i++ {
 		movie := make(map[string]string)
 		description := strings.Split(movieItem[i].Description, "\"")
@@ -82,13 +82,15 @@ func main() {
 
 		MoviesMap[i] = movie
 	}
-
+	//
 	//循环输出
 	//for k, v := range MoviesMap {
 	//	fmt.Println(k, v)
 	//}
 
 	data, _ = json.Marshal(MoviesMap)
+
+	//fmt.Printf(string(data))
 
 	r := gin.Default()
 	r.Use(Cors())
