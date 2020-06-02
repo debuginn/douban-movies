@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豆瓣 XML 解析例子</title>
+    <link rel="stylesheet" href="./static/css/mdui.min.css">
+
+</head>
+
+<body>
+<div class="mdui-container-fluid">
+    <div class="mdui-row">
+        <div id="app">
+        </div>
+    </div>
+</div>
+</div>
+<script src="./static/js/mdui.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script>
+    $(function () {
+        $.ajax({
+            //请求方式
+            type: "GET",
+            //文件位置
+            url: "https://demo.debuginn.cn/doubanmovies",
+            //返回数据格式为json,也可以是其他格式如
+            dataType: "json",
+            //请求成功后要执行的函数，拼接html
+            success: function (data) {
+                console.log(data)
+                var str = "";
+                $.each(data, function (i, n) {
+                    str += '<div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-col-lg-3 mdui-m-b-1 mdui-m-t-1">';
+                    str += '<a href="' + n.Link + '" target="_blank">';
+                    str += '<div class="mdui-card mdui-hoverable">';
+                    str += '<div class="mdui-card-media">';
+                    str += '<img src="' + n.Img + '" style="height: 260px;"  referrerpolicy="no-referrer"/>';
+                    str += '<div class="mdui-card-media-covered">';
+                    str += '<div class="mdui-card-primary">';
+                    str += '<div class="mdui-card-primary-subtitle">' + n.Title + '</div>';
+                    str += '</div>';
+                    str += '</div>';
+                    str += '</div>';
+                    str += '</div>';
+                    str += '</a>';
+                    str += '</div>';
+                });
+                $("#app").append(str);
+            }
+        });
+    });
+</script>
+</body>
+</html>

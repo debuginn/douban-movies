@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>豆瓣 XML 解析例子</title>
     <link rel="stylesheet" href="./static/css/mdui.min.css">
-
+    
 </head>
 
 <body>
@@ -17,7 +17,7 @@
                 <a :href="item.Link" target="_blank">
                     <div class="mdui-card mdui-hoverable">
                         <div class="mdui-card-media">
-                            <img :src="item.Img" style="height: 260px;" />
+                            <img :src="item.Img" style="height: 260px;" referrerpolicy="no-referrer" />
                             <div class="mdui-card-media-covered">
                                 <div class="mdui-card-primary">
                                     <div class="mdui-card-primary-subtitle">{{ item.Title }}</div>
@@ -30,9 +30,6 @@
         </div>
     </div>
 </div>
-
-
-</body>
 <script src="./static/js/mdui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
 <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
@@ -46,7 +43,8 @@
         },
         mounted() {
             axios
-                .get('http://39.107.70.169:8080/doubanmovies')
+                //.get('https://demo.debuginn.cn/doubanmovies')
+                .get('http://127.0.0.1:8080/doubanmovies')
                 .then(response => (this.info = response.data))
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
@@ -54,5 +52,6 @@
         }
     })
 </script>
+</body>
 
 </html>

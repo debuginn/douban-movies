@@ -36,26 +36,6 @@ type MovieItem struct {
 	Pubdate     string `xml:"pubDate"`
 }
 
-// 获取 xml 文件数据
-func getXMLData(url string) (data []byte, err error) {
-	// 读取 xml 文件
-	client := &http.Client{}
-	req, _ := http.NewRequest("GET", url, nil)
-	// 自定义Header
-	req.Header.Set("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)")
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close() // 关闭文件
-	// 读取所有文件内容保存至 []byte
-	data, err = ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	return
-}
-
 func main() {
 	url := "https://www.douban.com/feed/people/debuginn/interests"
 	data, err := getXMLData(url)
@@ -75,6 +55,7 @@ func main() {
 	for i := 0; i < len(movieItem); i++ {
 		movie := make(map[string]string)
 		description := strings.Split(movieItem[i].Description, "\"")
+
 		movie["Title"] = string([]rune(movieItem[i].Title)[2:])
 		movie["Link"] = movieItem[i].Link
 		movie["Img"] = description[7]
@@ -90,8 +71,6 @@ func main() {
 
 	data, _ = json.Marshal(MoviesMap)
 
-	//fmt.Printf(string(data))
-
 	r := gin.Default()
 	r.Use(Cors())
 	r.GET("/doubanmovies", func(context *gin.Context) {
@@ -99,6 +78,26 @@ func main() {
 	})
 
 	_ = r.Run(":8080")
+}
+
+// 获取 xml 文件数据
+func getXMLData(url string) (data []byte, err error) {
+	// 读取 xml 文件
+	client := &http.Client{}
+	req, _ := http.NewRequest("GET", url, nil)
+	// 自定义Header
+	req.Header.Set("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)")
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close() // 关闭文件
+	// 读取所有文件内容保存至 []byte
+	data, err = ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return
 }
 
 // 跨域
