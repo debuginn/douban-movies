@@ -1,4 +1,4 @@
-# DouBanMyMovies
+## 豆瓣电影同步博客工具
 
 [如何将豆瓣观影记录实时同步至博客中](https://www.debuginn.cn/6016.html)
 ---

@@ -1,8 +1,8 @@
-module DouBanMyMovie
+module douban-movies
 
-go 1.13
+go 1.16
 
 require (
-	github.com/fatih/structs v1.1.0 // indirect
 	github.com/gin-gonic/gin v1.6.3
+	github.com/robfig/cron/v3 v3.0.0 // indirect
 )
