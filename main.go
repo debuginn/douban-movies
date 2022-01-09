@@ -22,7 +22,7 @@ func main() {
 
 	r := gin.Default()
 	r.Use(Cors())
-	r.GET("/doubanmovies", func(context *gin.Context) {
+	r.GET("/douban_movies", func(context *gin.Context) {
 		context.JSON(http.StatusOK, m.GetMoviesData())
 	})
 
